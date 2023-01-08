@@ -1,13 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import CommonCard from "../common/CommonCard";
+import TodoCard from "./TodoCard";
 
-const TodoBottom = () => {
+const TodoBottom = ({ children, todoItems }) => {
   return (
     <div>
-      <h3>Todo List</h3>
+      <h3>{children}</h3>
       <TodoListContainer>
-        <CommonCard />
+        {todoItems &&
+          todoItems.map((item) => (
+            <TodoCard
+              title={item.title}
+              isDone={item.isDone}
+              id={item.id}
+              key={item.id}
+            />
+          ))}
       </TodoListContainer>
     </div>
   );
