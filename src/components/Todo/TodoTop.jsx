@@ -10,8 +10,8 @@ const TodoTop = () => {
   const todoState = useSelector((state) => state.todos);
 
   useEffect(() => {
-    todoState.todos.length === 0 && dispatch(__getTodos());
-  }, [dispatch, todoState]);
+    dispatch(__getTodos());
+  }, [dispatch]);
 
   const todoList = todoState.todos.filter((item) => !item.isDone);
   const doneList = todoState.todos.filter((item) => item.isDone);
