@@ -1,35 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CommonButton from "../common/CommonButton";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { __getTodos, __postTodos } from "../../redux/modules/todos";
 import TodoBottom from "./TodoBottom";
+import { useTodo } from "../../hooks/useTodo";
+
 const TodoTop = () => {
-  const [typingNewTodo, setTypingNewTodo] = useState("");
-  const dispatch = useDispatch();
-  const todoState = useSelector((state) => state.todos);
-
-  useEffect(() => {
-    dispatch(__getTodos());
-  }, [dispatch]);
-
-  const todoList = todoState.todos.filter((item) => !item.isDone);
-  const doneList = todoState.todos.filter((item) => item.isDone);
-
-  const newTodo = {
-    id: Date.now(),
-    title: typingNewTodo,
-    isDone: false,
-  };
-
-  const changeNewTodo = (event) => {
-    setTypingNewTodo(event.target.value);
-  };
-
-  const addNewTodo = () => {
-    console.log("addNewTodo실행");
-    dispatch(__postTodos(newTodo));
-  };
+  const { typingNewTodo, todoList, doneList, changeNewTodo, addNewTodo } =
+    useTodo({ initialInputValue: "나는 인풋에 들어갈애야 ㅎㅅㅎ" });
 
   return (
     <div>
@@ -38,6 +14,7 @@ const TodoTop = () => {
         <input
           type="text"
           placeholder="todo를 입력하세요"
+          value={typingNewTodo}
           onChange={changeNewTodo}
         />
 
